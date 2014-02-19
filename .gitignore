@@ -30,5 +30,10 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
+# Java
+classes/
+*.class
+
 #Google App Engine
-RemoteSystemsTempFiles
+RemoteSystemsTempFiles/
+appengine-generated/
