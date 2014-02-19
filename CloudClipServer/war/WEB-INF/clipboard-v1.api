@@ -1,0 +1,106 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://interdeviceclipboard.appspot.com/_ah/api",
+  "name" : "clipboard",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://interdeviceclipboard.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "methods" : {
+    "clipboard.clipboard.add" : {
+      "path" : "add",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "d3v.cc.server.api.ClipBoardEndpoint.add",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "clipboard.clipboard.get" : {
+      "path" : "clipboard",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "d3v.cc.server.api.ClipBoardEndpoint.get",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Clip" : {
+        "id" : "Clip",
+        "type" : "object",
+        "properties" : {
+          "clip" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ClipBoard" : {
+        "id" : "ClipBoard",
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "clips" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Clip"
+            }
+          }
+        }
+      }
+    },
+    "methods" : {
+      "d3v.cc.server.api.ClipBoardEndpoint.add" : {
+        "request" : {
+          "$ref" : "Clip"
+        },
+        "response" : {
+          "$ref" : "ClipBoard"
+        }
+      },
+      "d3v.cc.server.api.ClipBoardEndpoint.get" : {
+        "response" : {
+          "$ref" : "ClipBoard"
+        }
+      }
+    }
+  }
+}
